@@ -1,12 +1,15 @@
 package nyc.c4q.androidtest_unit4final;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +23,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     private static String TAG = "ColorAdapter";
     private List<String> colorNames;
     private HashMap<String, String> colorDict;
+    private Context context;
 
     public ColorAdapter(List<String> colors, HashMap<String, String> colorMap) {
         Sort.selectionSort(colors, true);
@@ -30,6 +34,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     @Override
     public ColorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.color_itemview, parent, false);
+
+        context = itemView.getContext();
         return new ColorViewHolder(itemView);
     }
 
@@ -45,16 +51,20 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
             // TODO: When the name in a viewHolder is clicked,
             // display a long toast with the text "{color_name} has a HEX value of {color_hex}
             // for example: "blue has a HEX value of #0000ff"
+
+            Toast.makeText(context, "has a HEX value of", Toast.LENGTH_LONG).show();
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return colorNames.size();
-    }
+        @Override
+        public int getItemCount() {
+
+            return colorNames.size();
+        }
+
 
     public String getColor(String s) {
-        if(colorDict.containsKey(s.toLowerCase())) {
+        if (colorDict.containsKey(s.toLowerCase())) {
             return colorDict.get(s.toLowerCase());
         }
         return "#000000";
@@ -69,3 +79,6 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
         }
     }
 }
+
+
+
